@@ -9,6 +9,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "Environment/Item.h"
 #include "BeaconOfLife_AI.generated.h"
 
 USTRUCT(BlueprintType)
@@ -74,6 +75,9 @@ public:
 
   // Called to bind functionality to input
   virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+
+  // Overlap
+  //void OnBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) override;
 
   //Return if the AI is hungry
   UFUNCTION(BlueprintCallable, Category = "Stats")

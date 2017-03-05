@@ -40,6 +40,17 @@ void ABeaconOfLife_AI::SetupPlayerInputComponent(class UInputComponent* InputCom
   Super::SetupPlayerInputComponent(InputComponent);
 }
 
+/*void ABeaconOfLife_AI::OnBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+  AItem* item = Cast<AItem>(OtherActor);
+
+  if (item)
+  {
+    //actor->TakeDamage(Damage, FDamageEvent(), nullptr, nullptr);
+    //Destroy();
+  }
+}*/
+
 bool ABeaconOfLife_AI::IsHungry()
 {
   return (PhysiologicalStats.Food < PhysiologicalStats.AmountToBeHungry);
