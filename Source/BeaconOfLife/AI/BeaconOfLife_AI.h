@@ -21,30 +21,39 @@ struct FPhysiologicalStats
     float Food;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float AmountToBeHungry;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float HungryPerTime;
 
   //WATER
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float Water;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float AmountToBeThirsty;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float ThirstyPerTime;
 
   //SLEEP
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float Sleep;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float AmountToBeSleepy;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float SleepyPerTime;
 
   //Constructor
   FPhysiologicalStats()
   {
     Food = 0.0f;
     AmountToBeHungry = 22.0f;
+    HungryPerTime = 1.0f;
 
-    Water = 100.0f;
+    Water = 0.0f;
     AmountToBeThirsty = 22.0f;
+    ThirstyPerTime = 1.0f;
 
-    Sleep = 100.0f;
+    Sleep = 0.0f;
     AmountToBeSleepy = 22.0f;
+    SleepyPerTime = 1.0f;
   }
 };
 
@@ -78,8 +87,17 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool IsSleepy();
 
+  //Make the AI eat food from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool EatFood();
+
+  //Make the AI drink water from the inventory
+  UFUNCTION(BlueprintCallable, Category = "Stats")
+    bool DrinkWater();
+
+  //Make the AI sleep from the inventory
+  UFUNCTION(BlueprintCallable, Category = "Stats")
+    bool Sleep();
 
 private:
   //Physiological stats

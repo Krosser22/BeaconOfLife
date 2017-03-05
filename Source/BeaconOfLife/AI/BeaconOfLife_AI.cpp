@@ -28,6 +28,10 @@ void ABeaconOfLife_AI::BeginPlay()
 void ABeaconOfLife_AI::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
+
+  PhysiologicalStats.Food -= PhysiologicalStats.HungryPerTime * DeltaTime;
+  PhysiologicalStats.Water -= PhysiologicalStats.ThirstyPerTime * DeltaTime;
+  PhysiologicalStats.Sleep -= PhysiologicalStats.SleepyPerTime * DeltaTime;
 }
 
 // Called to bind functionality to input
@@ -53,7 +57,19 @@ bool ABeaconOfLife_AI::IsSleepy()
 
 bool ABeaconOfLife_AI::EatFood()
 {
-  GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
+  //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
   PhysiologicalStats.Food = 100.0f;
+  return true;
+}
+
+bool ABeaconOfLife_AI::DrinkWater()
+{
+  PhysiologicalStats.Water = 100.0f;
+  return true;
+}
+
+bool ABeaconOfLife_AI::Sleep()
+{
+  PhysiologicalStats.Sleep = 100.0f;
   return true;
 }
