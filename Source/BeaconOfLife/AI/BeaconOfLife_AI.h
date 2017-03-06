@@ -9,6 +9,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "Environment/Food.h"
 #include "Environment/Item.h"
 #include "BeaconOfLife_AI.generated.h"
 
@@ -74,36 +75,47 @@ public:
   virtual void Tick(float DeltaSeconds) override;
 
   // Called to bind functionality to input
-  virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+  virtual void SetupPlayerInputComponent(class UInputComponent *InputComponent) override;
 
   // Overlap
-  //void OnBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) override;
+  UFUNCTION()
+    virtual void OnBeginOverlap(class UPrimitiveComponent *HitComp, class AActor *OtherActor, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-  //Return if the AI is hungry
+  // Return if the AI is hungry
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool IsHungry();
 
-  //Return if the AI is thirsty
+  // Return if the AI is thirsty
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool IsThirsty();
 
-  //Return if the AI is sleepy
+  // Return if the AI is sleepy
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool IsSleepy();
 
-  //Make the AI eat food from the inventory
+  // Make the AI eat food from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
-    bool EatFood();
+    bool EatFood(AFood *food);
 
-  //Make the AI drink water from the inventory
+  // Make the AI drink water from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool DrinkWater();
 
-  //Make the AI sleep from the inventory
+  // Make the AI sleep from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool Sleep();
 
+  UFUNCTION(BlueprintCallable, Category = "Stats")
+    AFood *getFoodFromInventory();
+
 private:
-  //Physiological stats
+  // Box Collision
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Collision")
+    UBoxComponent* CollisionComponent;
+
+  // Physiological stats
   FPhysiologicalStats PhysiologicalStats;
+
+  // The inventory of the AI
+  TArray<AItem *> Inventory;
 };

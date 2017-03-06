@@ -26,9 +26,28 @@ public:
   // Called every frame
   virtual void Tick(float DeltaSeconds) override;
 
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-    float MaxAmount;
+  // Overlap
+  UFUNCTION()
+    virtual void OnBeginOverlap(class UPrimitiveComponent *HitComp, class AActor *OtherActor, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+  // Max amount of this element
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-    float Amount;
+    int MaxAmount;
+
+  // Actual amount of this element
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+    int Amount;
+
+  // If the element is enabled
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+    bool enabled;
+
+protected:
+  // Box Collision
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Collision")
+    UBoxComponent* CollisionComponent;
+
+  // Mesh
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Mesh")
+    UStaticMeshComponent* MeshComponent;
 };
