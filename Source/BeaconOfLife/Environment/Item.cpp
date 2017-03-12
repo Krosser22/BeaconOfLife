@@ -21,13 +21,14 @@ AItem::AItem()
 
   // Create Tripwire Collision
   CollisionComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
-  CollisionComponent->InitBoxExtent(FVector(10, 10, 1));
+  CollisionComponent->InitBoxExtent(FVector(10, 10, 10));
   CollisionComponent->SetupAttachment(MeshComponent);
   CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnBeginOverlap);
 
+  enabled = true;
   MaxAmount = 100;
   Amount = 1;
-  enabled = true;
+  BuyPrice = 10;
 }
 
 // Called when the game starts or when spawned

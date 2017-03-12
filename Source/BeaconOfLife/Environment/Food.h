@@ -8,8 +8,7 @@
 **/
 #pragma once
 
-#include "GameFramework/Actor.h"
-#include "Item.h"
+#include "Environment/Item.h"
 #include "Food.generated.h"
 
 UCLASS()
@@ -27,9 +26,11 @@ public:
   // Called every frame
   virtual void Tick(float DeltaSeconds) override;
 
+  // Amount of food obtainable from this food
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Food")
     float AmountOfPower;
 
+  // Time needed to eat this food
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Food")
     float TimeToEat;
 };

@@ -22,6 +22,8 @@ ABeaconOfLife_AI::ABeaconOfLife_AI()
   CollisionComponent->InitBoxExtent(FVector(10, 10, 10));
   CollisionComponent->SetupAttachment(RootComponent);
   CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &ABeaconOfLife_AI::OnBeginOverlap);
+
+  Money = 100;
 }
 
 // Called when the game starts or when spawned
@@ -36,7 +38,7 @@ void ABeaconOfLife_AI::Tick(float DeltaTime)
   Super::Tick(DeltaTime);
 
   PhysiologicalStats.Food -= PhysiologicalStats.HungryPerTime * DeltaTime;
-  PhysiologicalStats.Water -= PhysiologicalStats.ThirstyPerTime * DeltaTime;
+  PhysiologicalStats.Drink -= PhysiologicalStats.ThirstyPerTime * DeltaTime;
   PhysiologicalStats.Sleep -= PhysiologicalStats.SleepyPerTime * DeltaTime;
   //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
 }
@@ -54,7 +56,8 @@ void ABeaconOfLife_AI::OnBeginOverlap(UPrimitiveComponent *HitComp, AActor *Othe
   if (item)
   {
     Inventory.Add(item);
-    item->SetActorLocation(FVector(9999, 9999, 9999));
+    item->SetActorLocation(FVector(9999.0f, 9999.0f, 9999.0f));
+    item->enabled = false;
   }
 }
 
@@ -65,7 +68,7 @@ bool ABeaconOfLife_AI::IsHungry()
 
 bool ABeaconOfLife_AI::IsThirsty()
 {
-  return (PhysiologicalStats.Water < PhysiologicalStats.AmountToBeThirsty);
+  return (PhysiologicalStats.Drink < PhysiologicalStats.AmountToBeThirsty);
 }
 
 bool ABeaconOfLife_AI::IsSleepy()
@@ -73,17 +76,15 @@ bool ABeaconOfLife_AI::IsSleepy()
   return (PhysiologicalStats.Sleep < PhysiologicalStats.AmountToBeSleepy);
 }
 
-bool ABeaconOfLife_AI::EatFood(AFood *food)
+void ABeaconOfLife_AI::EatFood(AFood *food)
 {
   //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
   PhysiologicalStats.Food += food->AmountOfPower;
-  return true;
 }
 
-bool ABeaconOfLife_AI::DrinkWater()
+void ABeaconOfLife_AI::DrinkDrink(ADrink *drink)
 {
-  PhysiologicalStats.Water = 100.0f;
-  return true;
+  PhysiologicalStats.Drink += drink->AmountOfPower;
 }
 
 bool ABeaconOfLife_AI::Sleep()
@@ -92,7 +93,7 @@ bool ABeaconOfLife_AI::Sleep()
   return true;
 }
 
-AFood *ABeaconOfLife_AI::getFoodFromInventory()
+AFood *ABeaconOfLife_AI::GetFoodFromInventory()
 {
   bool foodFound = false;
   AFood* food = nullptr;
@@ -111,4 +112,35 @@ AFood *ABeaconOfLife_AI::getFoodFromInventory()
     }
   }
   return food;
+}
+
+ADrink *ABeaconOfLife_AI::GetDrinkFromInventory()
+{
+  bool drinkFound = false;
+  ADrink* drink = nullptr;
+  for (int32 i = 0; i < Inventory.Num() && !drinkFound; ++i)
+  {
+    drink = Cast<ADrink>(Inventory[i]);
+    if (drink)
+    {
+      drinkFound = true;
+
+      drink->Amount--;
+      if (drink->Amount <= 0)
+      {
+        Inventory.RemoveAt(i);
+      }
+    }
+  }
+  return drink;
+}
+
+void ABeaconOfLife_AI::AddFoodToInventory(AFood *food)
+{
+  Inventory.Add(food);
+}
+
+void ABeaconOfLife_AI::AddDrinkToInventory(ADrink *drink)
+{
+  Inventory.Add(drink);
 }

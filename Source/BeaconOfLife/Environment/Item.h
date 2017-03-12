@@ -30,6 +30,10 @@ public:
   UFUNCTION()
     virtual void OnBeginOverlap(class UPrimitiveComponent *HitComp, class AActor *OtherActor, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+  // If the element is enabled
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+    bool enabled;
+
   // Max amount of this element
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
     int MaxAmount;
@@ -38,9 +42,9 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
     int Amount;
 
-  // If the element is enabled
+  // The price when buying the item
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-    bool enabled;
+    int BuyPrice;
 
 protected:
   // Box Collision

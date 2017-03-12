@@ -11,6 +11,7 @@
 #include "GameFramework/Character.h"
 #include "Environment/Food.h"
 #include "Environment/Item.h"
+#include "Environment/Drink.h"
 #include "BeaconOfLife_AI.generated.h"
 
 USTRUCT(BlueprintType)
@@ -26,9 +27,9 @@ struct FPhysiologicalStats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float HungryPerTime;
 
-  //WATER
+  //DRINK
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    float Water;
+    float Drink;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float AmountToBeThirsty;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
@@ -49,7 +50,7 @@ struct FPhysiologicalStats
     AmountToBeHungry = 22.0f;
     HungryPerTime = 1.0f;
 
-    Water = 0.0f;
+    Drink = 0.0f;
     AmountToBeThirsty = 22.0f;
     ThirstyPerTime = 1.0f;
 
@@ -95,26 +96,44 @@ public:
 
   // Make the AI eat food from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
-    bool EatFood(AFood *food);
+    void EatFood(AFood *food);
 
-  // Make the AI drink water from the inventory
+  // Make the AI drink a drink from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
-    bool DrinkWater();
+    void DrinkDrink(ADrink *drink);
 
   // Make the AI sleep from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
     bool Sleep();
 
+  // Get food from the inventory
   UFUNCTION(BlueprintCallable, Category = "Stats")
-    AFood *getFoodFromInventory();
+    AFood *GetFoodFromInventory();
+
+  // Get drink from the inventory
+  UFUNCTION(BlueprintCallable, Category = "Stats")
+    ADrink *GetDrinkFromInventory();
+
+  // Add food to the inventory
+  UFUNCTION(BlueprintCallable, Category = "Stats")
+    void AddFoodToInventory(AFood *food);
+
+  // Add drink to the inventory
+  UFUNCTION(BlueprintCallable, Category = "Stats")
+    void AddDrinkToInventory(ADrink *drink);
+
+  // Money stored on this AI
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    int Money;
+
+  // Physiological stats
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    FPhysiologicalStats PhysiologicalStats;
 
 private:
   // Box Collision
   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Collision")
     UBoxComponent* CollisionComponent;
-
-  // Physiological stats
-  FPhysiologicalStats PhysiologicalStats;
 
   // The inventory of the AI
   TArray<AItem *> Inventory;
