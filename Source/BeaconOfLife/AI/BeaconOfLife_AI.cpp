@@ -87,10 +87,10 @@ void ABeaconOfLife_AI::DrinkDrink(ADrink *drink)
   PhysiologicalStats.Drink += drink->AmountOfPower;
 }
 
-bool ABeaconOfLife_AI::Sleep()
+void ABeaconOfLife_AI::Sleep(float amountObtainable)
 {
-  PhysiologicalStats.Sleep = 100.0f;
-  return true;
+  //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("Sleep: %f"), amountObtainable));
+  PhysiologicalStats.Sleep += amountObtainable;
 }
 
 AFood *ABeaconOfLife_AI::GetFoodFromInventory()
@@ -143,4 +143,18 @@ void ABeaconOfLife_AI::AddFoodToInventory(AFood *food)
 void ABeaconOfLife_AI::AddDrinkToInventory(ADrink *drink)
 {
   Inventory.Add(drink);
+}
+
+bool ABeaconOfLife_AI::IsFamily(ABeaconOfLife_AI *character)
+{
+  bool isFamily = false;
+  
+  isFamily = (AI_Partner == character) | (this == character);
+
+  for (int32 i = 0; i < AI_Children.Num() && !isFamily; ++i)
+  {
+    isFamily = (AI_Children[i] == character);
+  }
+
+  return isFamily;
 }

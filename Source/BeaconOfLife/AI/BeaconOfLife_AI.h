@@ -9,6 +9,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "Building/BuildingBase.h"
 #include "Environment/Food.h"
 #include "Environment/Item.h"
 #include "Environment/Drink.h"
@@ -46,17 +47,17 @@ struct FPhysiologicalStats
   //Constructor
   FPhysiologicalStats()
   {
-    Food = 0.0f;
+    Food = 100.0f;
     AmountToBeHungry = 22.0f;
-    HungryPerTime = 1.0f;
+    HungryPerTime = 0.08f;
 
-    Drink = 0.0f;
-    AmountToBeThirsty = 22.0f;
-    ThirstyPerTime = 1.0f;
+    Drink = 100.0f;
+    AmountToBeThirsty = 30.0f;
+    ThirstyPerTime = 0.09f;
 
-    Sleep = 0.0f;
+    Sleep = 21.0f;
     AmountToBeSleepy = 22.0f;
-    SleepyPerTime = 1.0f;
+    SleepyPerTime = 1.05f;
   }
 };
 
@@ -83,52 +84,68 @@ public:
     virtual void OnBeginOverlap(class UPrimitiveComponent *HitComp, class AActor *OtherActor, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
   // Return if the AI is hungry
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     bool IsHungry();
 
   // Return if the AI is thirsty
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     bool IsThirsty();
 
   // Return if the AI is sleepy
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     bool IsSleepy();
 
   // Make the AI eat food from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void EatFood(AFood *food);
 
   // Make the AI drink a drink from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void DrinkDrink(ADrink *drink);
 
   // Make the AI sleep from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
-    bool Sleep();
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
+    void Sleep(float amountObtainable);
 
   // Get food from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     AFood *GetFoodFromInventory();
 
   // Get drink from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     ADrink *GetDrinkFromInventory();
 
   // Add food to the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void AddFoodToInventory(AFood *food);
 
   // Add drink to the inventory
-  UFUNCTION(BlueprintCallable, Category = "Stats")
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void AddDrinkToInventory(ADrink *drink);
 
-  // Money stored on this AI
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    int Money;
+  // Return if a character is family (partner or child)
+  UFUNCTION(BlueprintCallable, Category = "Social")
+    bool IsFamily(ABeaconOfLife_AI *character);
 
   // Physiological stats
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     FPhysiologicalStats PhysiologicalStats;
+
+  // Money stored on this AI
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "General")
+    int Money;
+
+  // The partner of this character
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    ABeaconOfLife_AI *AI_Partner;
+
+  // The children of this character
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    TArray<ABeaconOfLife_AI *> AI_Children;
+
+  // The home of this character
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
+    ABuildingBase *Home;
 
 private:
   // Box Collision
