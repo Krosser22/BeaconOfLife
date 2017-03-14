@@ -9,10 +9,11 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "Environment.h"
 #include "Tree.generated.h"
 
 UCLASS()
-class BEACONOFLIFE_API ATree : public AActor
+class BEACONOFLIFE_API ATree : public AEnvironment
 {
 	GENERATED_BODY()
 	

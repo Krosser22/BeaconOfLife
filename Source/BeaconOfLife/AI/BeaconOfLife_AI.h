@@ -43,6 +43,8 @@ struct FPhysiologicalStats
     float AmountToBeSleepy;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float SleepyPerTime;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float AmountToSleepNow;
 
   //Constructor
   FPhysiologicalStats()
@@ -55,9 +57,10 @@ struct FPhysiologicalStats
     AmountToBeThirsty = 30.0f;
     ThirstyPerTime = 0.09f;
 
-    Sleep = 21.0f;
+    Sleep = 100.0f;
     AmountToBeSleepy = 22.0f;
     SleepyPerTime = 1.05f;
+    AmountToSleepNow = 10.0f;
   }
 };
 

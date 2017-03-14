@@ -27,6 +27,10 @@ public:
   virtual void Tick(float DeltaSeconds) override;
 
   // Time to build this building
-  UPROPERTY(BlueprintReadWrite, Category = "Time")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
     float TimeToBuild = 4.0f;
+
+  // If the building is already build or not
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
+    bool IsBuilt = false;
 };
