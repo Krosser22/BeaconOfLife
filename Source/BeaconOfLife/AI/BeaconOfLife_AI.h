@@ -46,11 +46,25 @@ struct FPhysiologicalStats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     float AmountToSleepNow;
 
+  //HEAL
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float Heal;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float AmountToBeDying;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float DyingPerTimeWhenHungry;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float DyingPerTimeWhenThirty;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float DyingPerTimeWhenSleepy;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float DyingPerTimeWhenDying;
+
   //Constructor
   FPhysiologicalStats()
   {
     Food = 100.0f;
-    AmountToBeHungry = 22.0f;
+    AmountToBeHungry = 25.0f;
     HungryPerTime = 0.08f;
 
     Drink = 100.0f;
@@ -58,9 +72,16 @@ struct FPhysiologicalStats
     ThirstyPerTime = 0.09f;
 
     Sleep = 100.0f;
-    AmountToBeSleepy = 22.0f;
-    SleepyPerTime = 1.05f;
+    AmountToBeSleepy = 20.0f;
+    SleepyPerTime = 0.04f;
     AmountToSleepNow = 10.0f;
+
+    Heal = 100.0f;
+    AmountToBeDying = 22.22f;
+    DyingPerTimeWhenHungry = 0.08f;
+    DyingPerTimeWhenThirty = 0.09f;
+    DyingPerTimeWhenSleepy = 0.04f;
+    DyingPerTimeWhenDying = 0.22f;
   }
 };
 
@@ -98,32 +119,40 @@ public:
   UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     bool IsSleepy();
 
-  // Make the AI eat food from the inventory
+  // Return if the AI is dying
+  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
+    bool IsDying();
+
+  // Make the AI eat food
   UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void EatFood(AFood *food);
 
-  // Make the AI drink a drink from the inventory
+  // Make the AI drink a drink
   UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void DrinkDrink(ADrink *drink);
 
-  // Make the AI sleep from the inventory
+  // Make the AI sleep
   UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void Sleep(float amountObtainable);
 
-  // Get food from the inventory
+  // Make the AI be healed
   UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
+    void Heal(float amountObtainable);
+
+  // Get food from the inventory
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
     AFood *GetFoodFromInventory();
 
   // Get drink from the inventory
-  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
     ADrink *GetDrinkFromInventory();
 
   // Add food to the inventory
-  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
     void AddFoodToInventory(AFood *food);
 
   // Add drink to the inventory
-  UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
     void AddDrinkToInventory(ADrink *drink);
 
   // Return if a character is family (partner or child)

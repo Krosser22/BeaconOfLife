@@ -40,6 +40,10 @@ void ABeaconOfLife_AI::Tick(float DeltaTime)
   PhysiologicalStats.Food -= PhysiologicalStats.HungryPerTime * DeltaTime;
   PhysiologicalStats.Drink -= PhysiologicalStats.ThirstyPerTime * DeltaTime;
   PhysiologicalStats.Sleep -= PhysiologicalStats.SleepyPerTime * DeltaTime;
+  PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenHungry * DeltaTime * (PhysiologicalStats.Food < PhysiologicalStats.AmountToBeHungry);
+  PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenThirty * DeltaTime * (PhysiologicalStats.Drink < PhysiologicalStats.AmountToBeThirsty);
+  PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenSleepy * DeltaTime * (PhysiologicalStats.Sleep < PhysiologicalStats.AmountToBeSleepy);
+  PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenDying * DeltaTime * (PhysiologicalStats.Heal < PhysiologicalStats.AmountToBeDying);
   //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
 }
 
@@ -51,7 +55,6 @@ void ABeaconOfLife_AI::SetupPlayerInputComponent(class UInputComponent *InputCom
 
 void ABeaconOfLife_AI::OnBeginOverlap(UPrimitiveComponent *HitComp, AActor *OtherActor, UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
-  
   AItem* item = Cast<AItem>(OtherActor);
   if (item)
   {
@@ -76,6 +79,11 @@ bool ABeaconOfLife_AI::IsSleepy()
   return (PhysiologicalStats.Sleep < PhysiologicalStats.AmountToBeSleepy);
 }
 
+bool ABeaconOfLife_AI::IsDying()
+{
+  return (PhysiologicalStats.Heal < PhysiologicalStats.AmountToBeDying);
+}
+
 void ABeaconOfLife_AI::EatFood(AFood *food)
 {
   //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
@@ -89,8 +97,12 @@ void ABeaconOfLife_AI::DrinkDrink(ADrink *drink)
 
 void ABeaconOfLife_AI::Sleep(float amountObtainable)
 {
-  //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("Sleep: %f"), amountObtainable));
   PhysiologicalStats.Sleep += amountObtainable;
+}
+
+void ABeaconOfLife_AI::Heal(float amountObtainable)
+{
+  PhysiologicalStats.Heal += amountObtainable;
 }
 
 AFood *ABeaconOfLife_AI::GetFoodFromInventory()
