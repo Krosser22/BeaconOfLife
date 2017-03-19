@@ -155,6 +155,10 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Inventory")
     void AddDrinkToInventory(ADrink *drink);
 
+  // Add drink to the inventory
+  //UFUNCTION(BlueprintCallable, Category = "Inventory")
+  //  void AddWoodToInventory(ADrink *drink);
+
   // Return if a character is family (partner or child)
   UFUNCTION(BlueprintCallable, Category = "Social")
     bool IsFamily(ABeaconOfLife_AI *character);
