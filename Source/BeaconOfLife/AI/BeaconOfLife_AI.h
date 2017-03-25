@@ -155,9 +155,21 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Inventory")
     void AddDrinkToInventory(ADrink *drink);
 
-  // Add drink to the inventory
-  //UFUNCTION(BlueprintCallable, Category = "Inventory")
-  //  void AddWoodToInventory(ADrink *drink);
+  // Add wood to the inventory
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
+    void AddWoodToInventory(int amount);
+
+  // Add rock to the inventory
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
+    void AddRockToInventory(int amount);
+
+  // Return the amount of rocks on the inventory
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
+    int GetAmountOfRocksOnInventory();
+
+  // Return the amount of woods on the inventory
+  UFUNCTION(BlueprintCallable, Category = "Inventory")
+    int GetAmountOfWoodsOnInventory();
 
   // Return if a character is family (partner or child)
   UFUNCTION(BlueprintCallable, Category = "Social")
@@ -190,4 +202,12 @@ private:
 
   // The inventory of the AI
   TArray<AItem *> Inventory;
+
+  // Rocks on the inventory
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
+    int Rocks;
+
+  // Woods on the inventory
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
+    int Woods;
 };

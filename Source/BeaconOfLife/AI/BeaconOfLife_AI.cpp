@@ -157,6 +157,26 @@ void ABeaconOfLife_AI::AddDrinkToInventory(ADrink *drink)
   Inventory.Add(drink);
 }
 
+void ABeaconOfLife_AI::AddWoodToInventory(int amount)
+{
+  Woods += amount;
+}
+
+void ABeaconOfLife_AI::AddRockToInventory(int amount)
+{
+  Rocks += amount;
+}
+
+int ABeaconOfLife_AI::GetAmountOfRocksOnInventory()
+{
+  return Rocks;
+}
+
+int ABeaconOfLife_AI::GetAmountOfWoodsOnInventory()
+{
+  return Woods;
+}
+
 bool ABeaconOfLife_AI::IsFamily(ABeaconOfLife_AI *character)
 {
   bool isFamily = false;

@@ -33,4 +33,12 @@ public:
   // If the building is already build or not
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
     bool IsBuilt = false;
+
+  // Rock needed to build this building
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
+    int RockNeededToBuild = 10;
+
+  // Wood needed to build this building
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
+    int WoodNeededToBuild = 10;
 };
