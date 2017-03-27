@@ -226,6 +226,14 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
     TArray<ABeaconOfLife_AI *> AI_Children;
 
+  // The parent1 of this character
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    ABeaconOfLife_AI *AI_Parent1;
+
+  // The parent2 of this character
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    ABeaconOfLife_AI *AI_Parent2;
+
   // The home of this character
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
     ABuildingBase *Home;

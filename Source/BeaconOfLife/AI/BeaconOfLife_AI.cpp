@@ -181,7 +181,7 @@ bool ABeaconOfLife_AI::IsFamily(ABeaconOfLife_AI *character)
 {
   bool isFamily = false;
   
-  isFamily = (AI_Partner == character) | (this == character);
+  isFamily = (AI_Partner == character) | (this == character) | (AI_Parent1 == character) | (AI_Parent2 == character);
 
   for (int32 i = 0; i < AI_Children.Num() && !isFamily; ++i)
   {
