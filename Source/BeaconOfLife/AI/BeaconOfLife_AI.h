@@ -116,6 +116,30 @@ struct FAIMessage
   }
 };
 
+UENUM(BlueprintType)
+enum class EState : uint8
+{
+  State_None UMETA(DisplayName = "None"),
+  State_Speaking UMETA(DisplayName = "Speaking"),
+  State_Listening UMETA(DisplayName = "Listening")
+};
+
+USTRUCT(BlueprintType)
+struct FPhysiologicalStats
+{
+  GENERATED_BODY();
+
+  //FOOD
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float Food;
+
+  //Constructor
+  FPhysiologicalStats()
+  {
+    Food = 100.0f;
+  }
+}
+
 UCLASS()
 class BEACONOFLIFE_API ABeaconOfLife_AI : public ACharacter
 {
@@ -233,6 +257,10 @@ public:
   // The parent2 of this character
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
     ABeaconOfLife_AI *AI_Parent2;
+
+  // The state of the agent
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    EState State;
 
   // The home of this character
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")

@@ -193,5 +193,11 @@ bool ABeaconOfLife_AI::IsFamily(ABeaconOfLife_AI *character)
 
 void ABeaconOfLife_AI::AddMessage(FAIMessage message)
 {
-  Messages.Add(message);
+  bool found = false;
+  for (int32 i = 0; i < Messages.Num(); ++i)
+  {
+    if (Messages[i].MessageEnum == message.MessageEnum && Messages[i].Sender == message.Sender) found = true;
+  }
+
+  if (!found) Messages.Add(message);
 }
