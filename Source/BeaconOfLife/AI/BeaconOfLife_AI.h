@@ -85,6 +85,37 @@ struct FPhysiologicalStats
   }
 };
 
+UENUM(BlueprintType)
+enum class EMessage : uint8
+{
+  Message_None UMETA(DisplayName = "None"),
+  Message_RequestTalk UMETA(DisplayName = "RequestTalk"),
+  Message_AcceptTalk UMETA(DisplayName = "AcceptTalk"),
+  Message_Talk UMETA(DisplayName = "Talk"),
+  Message_RequestProcreate UMETA(DisplayName = "RequestProcreate"),
+  Message_AcceptProcreate UMETA(DisplayName = "AcceptProcreate"),
+  Message_Procreate UMETA(DisplayName = "Procreate")
+};
+
+USTRUCT(BlueprintType)
+struct FAIMessage
+{
+  GENERATED_BODY();
+
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    EMessage MessageEnum;
+
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
+    ABeaconOfLife_AI *Sender;
+
+  //Constructor
+  FAIMessage()
+  {
+    MessageEnum = EMessage::Message_None;
+    Sender = nullptr;
+  }
+};
+
 UCLASS()
 class BEACONOFLIFE_API ABeaconOfLife_AI : public ACharacter
 {
@@ -175,6 +206,10 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Social")
     bool IsFamily(ABeaconOfLife_AI *character);
 
+  // Return if a character is family (partner or child)
+  UFUNCTION(BlueprintCallable, Category = "Social")
+    void AddMessage(FAIMessage message);
+
   // Physiological stats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     FPhysiologicalStats PhysiologicalStats;
@@ -210,4 +245,8 @@ private:
   // Woods on the inventory
   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
     int Woods;
+
+  // Messages send by other AI
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
+    TArray<FAIMessage> Messages;
 };

@@ -190,3 +190,8 @@ bool ABeaconOfLife_AI::IsFamily(ABeaconOfLife_AI *character)
 
   return isFamily;
 }
+
+void ABeaconOfLife_AI::AddMessage(FAIMessage message)
+{
+  Messages.Add(message);
+}
