@@ -20,47 +20,47 @@ struct FPhysiologicalStats
 {
   GENERATED_BODY();
 
-  //FOOD
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  // FOOD
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float Food;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float AmountToBeHungry;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float HungryPerTime;
 
-  //DRINK
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  // DRINK
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float Drink;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float AmountToBeThirsty;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float ThirstyPerTime;
 
-  //SLEEP
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  // SLEEP
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float Sleep;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float AmountToBeSleepy;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float SleepyPerTime;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float AmountToSleepNow;
 
-  //HEAL
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  // HEAL
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float Heal;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float AmountToBeDying;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float DyingPerTimeWhenHungry;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float DyingPerTimeWhenThirty;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float DyingPerTimeWhenSleepy;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     float DyingPerTimeWhenDying;
 
-  //Constructor
+  // Constructor
   FPhysiologicalStats()
   {
     Food = 100.0f;
@@ -102,13 +102,15 @@ struct FAIMessage
 {
   GENERATED_BODY();
 
+  // The message
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
     EMessage MessageEnum;
 
+  // Sender of the message
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
     ABeaconOfLife_AI *Sender;
 
-  //Constructor
+  // Constructor
   FAIMessage()
   {
     MessageEnum = EMessage::Message_None;
@@ -125,20 +127,73 @@ enum class EState : uint8
 };
 
 USTRUCT(BlueprintType)
-struct FPhysiologicalStats
+struct FBelongingStats
 {
   GENERATED_BODY();
 
-  //FOOD
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    float Food;
+  // Social
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BelongingStats")
+    float Social;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BelongingStats")
+    float AmountToNeedToSocialize;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BelongingStats")
+    float NeedToSocializePerTime;
 
-  //Constructor
-  FPhysiologicalStats()
+  // Procreate
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BelongingStats")
+    float Procreate;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BelongingStats")
+    float AmountToBeHorny;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BelongingStats")
+    float NeedToProcreatePerTime;
+
+  // Constructor
+  FBelongingStats()
   {
-    Food = 100.0f;
+    // Social
+    Social = 100.0f;
+    AmountToNeedToSocialize = 50.0f;
+    NeedToSocializePerTime = 0.08f;
+
+    // Procreate
+    Procreate = 100.0f;
+    AmountToBeHorny = 10.0f;
+    NeedToProcreatePerTime = 0.03f;
   }
-}
+};
+
+USTRUCT(BlueprintType)
+struct FFriend
+{
+  GENERATED_BODY();
+
+  // Friend
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+    ABeaconOfLife_AI *Friend;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+    float AmountOfFriendship;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+    float AmountOfFriendshipGainedPerInteraction;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+    float AmountOfFriendshipLostPerInteraction;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+    float AmountOfFriendshipLostPerTime;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+    float AmountToFallInLove;
+
+  // Constructor
+  FFriend()
+  {
+    // Friend
+    Friend = nullptr;
+    AmountOfFriendship = 0.0f;
+    AmountOfFriendshipGainedPerInteraction = 0.08f;
+    AmountOfFriendshipLostPerInteraction = 50.0f;
+    AmountOfFriendshipLostPerTime = 50.0f;
+    AmountToFallInLove = 90.22f;
+  }
+};
+
 
 UCLASS()
 class BEACONOFLIFE_API ABeaconOfLife_AI : public ACharacter
@@ -285,4 +340,8 @@ private:
   // Messages send by other AI
   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
     TArray<FAIMessage> Messages;
+
+  // Friends
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
+    TArray<FFriend> Friends;
 };
