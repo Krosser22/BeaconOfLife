@@ -194,7 +194,6 @@ struct FFriend
   }
 };
 
-
 UCLASS()
 class BEACONOFLIFE_API ABeaconOfLife_AI : public ACharacter
 {
