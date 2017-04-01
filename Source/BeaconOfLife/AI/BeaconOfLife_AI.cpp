@@ -201,3 +201,70 @@ void ABeaconOfLife_AI::AddMessage(FAIMessage message)
 
   if (!found) Messages.Add(message);
 }
+
+void ABeaconOfLife_AI::Talk(ABeaconOfLife_AI *AI)
+{
+  bool found = false;
+  FFriend *theFriend = nullptr;
+  for (int32 i = 0; i < Friends.Num() && !found; ++i)
+  {
+    if (Friends[i].Friend == AI)
+    {
+      found = true;
+      theFriend = &Friends[i];
+    }
+  }
+
+  if (!found)
+  {
+    FFriend newFriend;
+    theFriend = &newFriend;
+    newFriend.Friend = AI;
+    Friends.Add(newFriend);
+    //TODO: Add random numbers with in a range
+    /*newFriend.FriendshipGainedPerInteraction = 0.08f;
+    newFriend.FriendshipLostPerInteraction = 0.1f;
+    newFriend.FriendshipLostPerTime = 0.001f;
+    newFriend.AmountToFallInLove = 90.22f;*/
+  }
+
+  theFriend->Friendship += theFriend->FriendshipGainedPerInteraction;
+
+  if (theFriend->Friendship >= theFriend->AmountToFallInLove)
+  {
+    if (!theFriend->Friend->AI_Partner && !AI_Partner)
+    {
+      theFriend->Friend->AI_Partner = this;
+      AI_Partner = theFriend->Friend;
+    }
+  }
+}
+
+void ABeaconOfLife_AI::Procreate(ABeaconOfLife_AI *AI)
+{
+  bool found = false;
+  FFriend *theFriend = nullptr;
+  for (int32 i = 0; i < Friends.Num() && !found; ++i)
+  {
+    if (Friends[i].Friend == AI)
+    {
+      found = true;
+      theFriend = &Friends[i];
+    }
+  }
+
+  //If is procreating it must be on the friend list but lets add this just in case it is not
+  if (!found)
+  {
+    FFriend newFriend;
+    theFriend = &newFriend;
+    newFriend.Friend = AI;
+    //TODO: Add random numbers with in a range
+    /*newFriend.FriendshipGainedPerInteraction = 0.08f;
+    newFriend.FriendshipLostPerInteraction = 0.1f;
+    newFriend.FriendshipLostPerTime = 0.001f;
+    newFriend.AmountToFallInLove = 90.22f;*/
+  }
+
+  theFriend->Friendship += theFriend->FriendshipGainedPerInteraction * 2.0f;
+}

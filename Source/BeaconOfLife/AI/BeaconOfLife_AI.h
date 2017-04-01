@@ -162,6 +162,7 @@ struct FBelongingStats
   }
 };
 
+//TODO: This system needs a lot of improvements but there is not time according to the deadline
 USTRUCT(BlueprintType)
 struct FFriend
 {
@@ -171,13 +172,13 @@ struct FFriend
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
     ABeaconOfLife_AI *Friend;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
-    float AmountOfFriendship;
+    float Friendship;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
-    float AmountOfFriendshipGainedPerInteraction;
+    float FriendshipGainedPerInteraction;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
-    float AmountOfFriendshipLostPerInteraction;
+    float FriendshipLostPerInteraction;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
-    float AmountOfFriendshipLostPerTime;
+    float FriendshipLostPerTime;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
     float AmountToFallInLove;
 
@@ -186,11 +187,11 @@ struct FFriend
   {
     // Friend
     Friend = nullptr;
-    AmountOfFriendship = 0.0f;
-    AmountOfFriendshipGainedPerInteraction = 0.08f;
-    AmountOfFriendshipLostPerInteraction = 50.0f;
-    AmountOfFriendshipLostPerTime = 50.0f;
-    AmountToFallInLove = 90.22f;
+    Friendship = 0.0f;
+    FriendshipGainedPerInteraction = 0.08f;
+    FriendshipLostPerInteraction = 0.1f;
+    FriendshipLostPerTime = 0.001f;
+    AmountToFallInLove = 0.22f;
   }
 };
 
@@ -284,9 +285,17 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Social")
     bool IsFamily(ABeaconOfLife_AI *character);
 
-  // Return if a character is family (partner or child)
+  // Add a message to this character to try to interact 
   UFUNCTION(BlueprintCallable, Category = "Social")
     void AddMessage(FAIMessage message);
+
+  // Talk to a character
+  UFUNCTION(BlueprintCallable, Category = "Social")
+    void Talk(ABeaconOfLife_AI *AI);
+
+  // Procreate with a character
+  UFUNCTION(BlueprintCallable, Category = "Social")
+    void Procreate(ABeaconOfLife_AI *AI);
 
   // Physiological stats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
@@ -329,11 +338,11 @@ private:
   TArray<AItem *> Inventory;
 
   // Rocks on the inventory
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
     int Rocks;
 
   // Woods on the inventory
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
     int Woods;
 
   // Messages send by other AI
