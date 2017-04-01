@@ -94,7 +94,10 @@ enum class EMessage : uint8
   Message_Talk UMETA(DisplayName = "Talk"),
   Message_RequestProcreate UMETA(DisplayName = "RequestProcreate"),
   Message_AcceptProcreate UMETA(DisplayName = "AcceptProcreate"),
-  Message_Procreate UMETA(DisplayName = "Procreate")
+  Message_Procreate UMETA(DisplayName = "Procreate"),
+  Message_RequestGoToCinema UMETA(DisplayName = "RequestGoToCinema"),
+  Message_AcceptGoToCinema UMETA(DisplayName = "AcceptGoToCinema"),
+  Message_GoToCinema UMETA(DisplayName = "GoToCinema")
 };
 
 USTRUCT(BlueprintType)
@@ -126,6 +129,7 @@ enum class EState : uint8
   State_Listening UMETA(DisplayName = "Listening")
 };
 
+//TODO: This is not being used at the moment :(
 USTRUCT(BlueprintType)
 struct FBelongingStats
 {
