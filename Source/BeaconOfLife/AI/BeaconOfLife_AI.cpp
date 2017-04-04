@@ -231,6 +231,10 @@ void ABeaconOfLife_AI::Talk(ABeaconOfLife_AI *AI)
   }
 
   theFriend->Friendship += theFriend->FriendshipGainedPerInteraction;
+  theFriend->Friend->PhysiologicalStats.Drink *= 0.9f;
+  theFriend->Friend->PhysiologicalStats.Food *= 0.95f;
+  PhysiologicalStats.Drink *= 0.9f;
+  PhysiologicalStats.Food *= 0.95f;
 
   if (theFriend->Friendship >= theFriend->AmountToFallInLove)
   {
@@ -269,4 +273,8 @@ void ABeaconOfLife_AI::Procreate(ABeaconOfLife_AI *AI)
   }
 
   theFriend->Friendship += theFriend->FriendshipGainedPerInteraction * 2.0f;
+  theFriend->Friend->PhysiologicalStats.Drink *= 0.7f;
+  theFriend->Friend->PhysiologicalStats.Food *= 0.6f;
+  PhysiologicalStats.Drink *= 0.7f;
+  PhysiologicalStats.Food *= 0.6f;
 }
