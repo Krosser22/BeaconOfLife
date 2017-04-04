@@ -301,6 +301,10 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Social")
     void Procreate(ABeaconOfLife_AI *AI);
 
+  // Uniq ID of the AI
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "General")
+    int32 ID;
+
   // Physiological stats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     FPhysiologicalStats PhysiologicalStats;

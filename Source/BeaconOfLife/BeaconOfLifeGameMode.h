@@ -10,7 +10,6 @@ class ABeaconOfLifeGameMode : public AGameMode
 
 public:
 	ABeaconOfLifeGameMode();
+
+  int32 GetAIID();
 };
-
-
-

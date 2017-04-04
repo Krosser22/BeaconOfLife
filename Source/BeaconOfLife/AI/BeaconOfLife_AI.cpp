@@ -8,6 +8,7 @@
 **/
 #include "BeaconOfLife.h"
 #include "BeaconOfLife_AI.h"
+#include "BeaconOfLifeGameMode.h"
 #include <EngineGlobals.h>
 #include <Runtime/Engine/Classes/Engine/Engine.h>
 
@@ -30,6 +31,7 @@ ABeaconOfLife_AI::ABeaconOfLife_AI()
 void ABeaconOfLife_AI::BeginPlay()
 {
   Super::BeginPlay();
+  ID = ((ABeaconOfLifeGameMode *)GetGameInstance())->GetAIID();
 }
 
 // Called every frame

@@ -4,6 +4,8 @@
 #include "BeaconOfLifeGameMode.h"
 #include "BeaconOfLifePlayerController.h"
 #include "BeaconOfLifeCharacter.h"
+#include <EngineGlobals.h>
+#include <Runtime/Engine/Classes/Engine/Engine.h>
 
 ABeaconOfLifeGameMode::ABeaconOfLifeGameMode()
 {
@@ -16,4 +18,11 @@ ABeaconOfLifeGameMode::ABeaconOfLifeGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+}
+
+int32 ABeaconOfLifeGameMode::GetAIID()
+{
+  static int32 start = 0;
+  GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::Red, FString::Printf(TEXT("%d"), start));
+  return start++;
 }
