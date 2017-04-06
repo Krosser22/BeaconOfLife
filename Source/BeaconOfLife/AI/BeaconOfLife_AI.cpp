@@ -278,3 +278,49 @@ void ABeaconOfLife_AI::Procreate(ABeaconOfLife_AI *AI)
   PhysiologicalStats.Drink *= 0.7f;
   PhysiologicalStats.Food *= 0.6f;
 }
+
+void ABeaconOfLife_AI::SetJob(EJob newJob)
+{
+  JobStats.job = newJob;
+
+  switch (JobStats.job)
+  {
+  case EJob::Job_Cleaner:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 0.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  case EJob::Job_Farmer:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 4.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  case EJob::Job_Vendor:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 8.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  case EJob::Job_Doctor:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 12.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  case EJob::Job_FilmWorker:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 16.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  case EJob::Job_Chef:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 20.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  case EJob::Job_Librarian:
+    JobStats.level = 1;
+    JobStats.TimeToStartWorking = 22.0f;
+    JobStats.AmountOfTimeToWork = 4.0f;
+    break;
+  default:
+    break;
+  }
+}

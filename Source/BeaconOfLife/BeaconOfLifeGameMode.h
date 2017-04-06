@@ -11,5 +11,10 @@ class ABeaconOfLifeGameMode : public AGameMode
 public:
 	ABeaconOfLifeGameMode();
 
+  // Gets the next ID to give to an AI
   int32 GetAIID();
+
+  // The time of the day
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
+    float TimeOfDay;
 };

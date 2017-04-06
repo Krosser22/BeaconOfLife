@@ -78,9 +78,9 @@ struct FPhysiologicalStats
 
     Heal = 100.0f;
     AmountToBeDying = 22.22f;
-    DyingPerTimeWhenHungry = 0.08f;
-    DyingPerTimeWhenThirty = 0.09f;
-    DyingPerTimeWhenSleepy = 0.04f;
+    DyingPerTimeWhenHungry = 0.16f;
+    DyingPerTimeWhenThirty = 0.18f;
+    DyingPerTimeWhenSleepy = 0.08f;
     DyingPerTimeWhenDying = 0.22f;
   }
 };
@@ -127,6 +127,45 @@ enum class EState : uint8
   State_None UMETA(DisplayName = "None"),
   State_Speaking UMETA(DisplayName = "Speaking"),
   State_Listening UMETA(DisplayName = "Listening")
+};
+
+UENUM(BlueprintType)
+enum class EJob : uint8
+{
+  Job_None UMETA(DisplayName = "None"),
+  Job_Cleaner UMETA(DisplayName = "Cleaner"),
+  Job_Farmer UMETA(DisplayName = "Farmer"),
+  Job_Vendor UMETA(DisplayName = "Vendor"),
+  Job_Doctor UMETA(DisplayName = "Doctor"),
+  Job_FilmWorker UMETA(DisplayName = "FilmWorker"),
+  Job_Chef UMETA(DisplayName = "Chef"),
+  Job_Librarian UMETA(DisplyName = "Librarian")
+};
+
+USTRUCT(BlueprintType)
+struct FJobStats
+{
+  GENERATED_BODY();
+
+  //JobStats
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
+    EJob job;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
+    int level;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
+    float TimeToStartWorking;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
+    float AmountOfTimeToWork;
+
+  // Constructor
+  FJobStats()
+  {
+    // JobStats
+    job = EJob::Job_None;
+    level = 0;
+    TimeToStartWorking = 0.0f;
+    AmountOfTimeToWork = 0.0f;
+  }
 };
 
 //TODO: This is not being used at the moment :(
@@ -301,6 +340,10 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Social")
     void Procreate(ABeaconOfLife_AI *AI);
 
+  // Sets the job to the AI
+  UFUNCTION(BlueprintCallable, Category = "General")
+    void SetJob(EJob newJob);
+
   // Uniq ID of the AI
   UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "General")
     int32 ID;
@@ -332,6 +375,10 @@ public:
   // The state of the agent
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Social")
     EState State;
+
+  // The job of the agent
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "General")
+    FJobStats JobStats;
 
   // The home of this character
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
