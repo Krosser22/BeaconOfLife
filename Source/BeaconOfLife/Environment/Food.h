@@ -20,12 +20,6 @@ public:
   // Sets default values for this actor's properties
   AFood();
 
-  // Called when the game starts or when spawned
-  virtual void BeginPlay() override;
-
-  // Called every frame
-  virtual void Tick(float DeltaSeconds) override;
-
   // Amount of food obtainable from this food
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Food")
     float AmountOfPower;

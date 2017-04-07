@@ -151,6 +151,8 @@ struct FJobStats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
     EJob job;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
+    ABuildingBase *jobBuilding;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
     int level;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JobStats")
     float TimeToStartWorking;
@@ -162,6 +164,7 @@ struct FJobStats
   {
     // JobStats
     job = EJob::Job_None;
+    jobBuilding = nullptr;
     level = 0;
     TimeToStartWorking = 0.0f;
     AmountOfTimeToWork = 0.0f;
@@ -292,22 +295,6 @@ public:
   UFUNCTION(BlueprintCallable, Category = "PhysiologicalStats")
     void Heal(float amountObtainable);
 
-  // Get food from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Inventory")
-    AFood *GetFoodFromInventory();
-
-  // Get drink from the inventory
-  UFUNCTION(BlueprintCallable, Category = "Inventory")
-    ADrink *GetDrinkFromInventory();
-
-  // Add food to the inventory
-  UFUNCTION(BlueprintCallable, Category = "Inventory")
-    void AddFoodToInventory(AFood *food);
-
-  // Add drink to the inventory
-  UFUNCTION(BlueprintCallable, Category = "Inventory")
-    void AddDrinkToInventory(ADrink *drink);
-
   // Add wood to the inventory
   UFUNCTION(BlueprintCallable, Category = "Inventory")
     void AddWoodToInventory(int amount);
@@ -343,6 +330,10 @@ public:
   // Sets the job to the AI
   UFUNCTION(BlueprintCallable, Category = "General")
     void SetJob(EJob newJob);
+
+  // Sets the job building to the AI
+  UFUNCTION(BlueprintCallable, Category = "General")
+    void SetJobBuilding(ABuildingBase *building);
 
   // Uniq ID of the AI
   UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "General")
@@ -389,8 +380,13 @@ private:
   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Collision")
     UBoxComponent* CollisionComponent;
 
-  // The inventory of the AI
-  TArray<AItem *> Inventory;
+  // Foods on the inventory
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
+    TArray<AFood *> Foods;
+
+  // Drinks on the inventory
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")
+    TArray<ADrink *> Drinks;
 
   // Rocks on the inventory
   UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Inventory")

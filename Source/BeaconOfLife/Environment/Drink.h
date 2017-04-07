@@ -20,12 +20,6 @@ public:
   // Sets default values for this actor's properties
   ADrink();
 
-  // Called when the game starts or when spawned
-  virtual void BeginPlay() override;
-
-  // Called every frame
-  virtual void Tick(float DeltaSeconds) override;
-
   // Amount of drink obtainable from this drink
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Drink")
     float AmountOfPower;

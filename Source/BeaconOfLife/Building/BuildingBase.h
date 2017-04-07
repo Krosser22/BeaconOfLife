@@ -20,12 +20,6 @@ public:
   // Sets default values for this actor's properties
   ABuildingBase();
 
-  // Called when the game starts or when spawned
-  virtual void BeginPlay() override;
-
-  // Called every frame
-  virtual void Tick(float DeltaSeconds) override;
-
   // Time to build this building
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
     float TimeToBuild = 4.0f;

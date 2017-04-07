@@ -57,12 +57,19 @@ void ABeaconOfLife_AI::SetupPlayerInputComponent(class UInputComponent *InputCom
 
 void ABeaconOfLife_AI::OnBeginOverlap(UPrimitiveComponent *HitComp, AActor *OtherActor, UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
-  AItem* item = Cast<AItem>(OtherActor);
-  if (item)
+  AFood* food = Cast<AFood>(OtherActor);
+  ADrink* drink = Cast<ADrink>(OtherActor);
+  if (food)
   {
-    Inventory.Add(item);
-    item->SetActorLocation(FVector(9999.0f, 9999.0f, 9999.0f));
-    item->enabled = false;
+    food->enabled = false;
+    food->SetActorLocation(FVector(9999.0f, 9999.0f, 9999.0f));
+    Foods.Add(food);
+  }
+  else if (drink)
+  {
+    drink->enabled = false;
+    drink->SetActorLocation(FVector(9999.0f, 9999.0f, 9999.0f));
+    Drinks.Add(drink);
   }
 }
 
@@ -105,58 +112,6 @@ void ABeaconOfLife_AI::Sleep(float amountObtainable)
 void ABeaconOfLife_AI::Heal(float amountObtainable)
 {
   PhysiologicalStats.Heal += amountObtainable;
-}
-
-AFood *ABeaconOfLife_AI::GetFoodFromInventory()
-{
-  bool foodFound = false;
-  AFood* food = nullptr;
-  for (int32 i = 0; i < Inventory.Num() && !foodFound; ++i)
-  {
-    food = Cast<AFood>(Inventory[i]);
-    if (food)
-    {
-      foodFound = true;
-
-      food->Amount--;
-      if (food->Amount <= 0)
-      {
-        Inventory.RemoveAt(i);
-      }
-    }
-  }
-  return food;
-}
-
-ADrink *ABeaconOfLife_AI::GetDrinkFromInventory()
-{
-  bool drinkFound = false;
-  ADrink* drink = nullptr;
-  for (int32 i = 0; i < Inventory.Num() && !drinkFound; ++i)
-  {
-    drink = Cast<ADrink>(Inventory[i]);
-    if (drink)
-    {
-      drinkFound = true;
-
-      drink->Amount--;
-      if (drink->Amount <= 0)
-      {
-        Inventory.RemoveAt(i);
-      }
-    }
-  }
-  return drink;
-}
-
-void ABeaconOfLife_AI::AddFoodToInventory(AFood *food)
-{
-  Inventory.Add(food);
-}
-
-void ABeaconOfLife_AI::AddDrinkToInventory(ADrink *drink)
-{
-  Inventory.Add(drink);
 }
 
 void ABeaconOfLife_AI::AddWoodToInventory(int amount)
@@ -323,4 +278,9 @@ void ABeaconOfLife_AI::SetJob(EJob newJob)
   default:
     break;
   }
+}
+
+void ABeaconOfLife_AI::SetJobBuilding(ABuildingBase *building)
+{
+  JobStats.jobBuilding = building;
 }
