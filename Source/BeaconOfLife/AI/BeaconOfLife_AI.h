@@ -234,10 +234,10 @@ struct FFriend
     // Friend
     Friend = nullptr;
     Friendship = 0.0f;
-    FriendshipGainedPerInteraction = 0.08f;
+    FriendshipGainedPerInteraction = 0.16f;
     FriendshipLostPerInteraction = 0.1f;
     FriendshipLostPerTime = 0.001f;
-    AmountToFallInLove = 0.22f;
+    AmountToFallInLove = 5.22f;
   }
 };
 

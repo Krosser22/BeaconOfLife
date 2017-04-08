@@ -151,7 +151,7 @@ bool ABeaconOfLife_AI::IsFamily(ABeaconOfLife_AI *character)
 void ABeaconOfLife_AI::AddMessage(FAIMessage message)
 {
   bool found = false;
-  for (int32 i = 0; i < Messages.Num(); ++i)
+  for (int32 i = 0; i < Messages.Num() && !found; ++i)
   {
     if (Messages[i].MessageEnum == message.MessageEnum && Messages[i].Sender == message.Sender) found = true;
   }
@@ -186,8 +186,6 @@ void ABeaconOfLife_AI::Talk(ABeaconOfLife_AI *AI)
   }
 
   theFriend->Friendship += theFriend->FriendshipGainedPerInteraction;
-  theFriend->Friend->PhysiologicalStats.Drink *= 0.9f;
-  theFriend->Friend->PhysiologicalStats.Food *= 0.95f;
   PhysiologicalStats.Drink *= 0.9f;
   PhysiologicalStats.Food *= 0.95f;
 
@@ -228,8 +226,6 @@ void ABeaconOfLife_AI::Procreate(ABeaconOfLife_AI *AI)
   }
 
   theFriend->Friendship += theFriend->FriendshipGainedPerInteraction * 2.0f;
-  theFriend->Friend->PhysiologicalStats.Drink *= 0.7f;
-  theFriend->Friend->PhysiologicalStats.Food *= 0.6f;
   PhysiologicalStats.Drink *= 0.7f;
   PhysiologicalStats.Food *= 0.6f;
 }
