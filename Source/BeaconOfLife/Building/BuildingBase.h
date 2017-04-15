@@ -20,6 +20,10 @@ public:
   // Sets default values for this actor's properties
   ABuildingBase();
 
+  // Set the cost to build the house
+  UFUNCTION(BlueprintCallable, Category = "Building")
+    void SetCostToBuild(int rocks, int woods);
+
   // Time to build this building
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building")
     float TimeToBuild = 4.0f;

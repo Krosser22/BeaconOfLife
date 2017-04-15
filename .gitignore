@@ -9,6 +9,7 @@
 
 # Visual studio files
 *.opensdf
+*.opendb
 *.sdf
 *.sln
 *.suo

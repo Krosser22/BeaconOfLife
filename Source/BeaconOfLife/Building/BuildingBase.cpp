@@ -14,3 +14,9 @@ ABuildingBase::ABuildingBase()
 {
   PrimaryActorTick.bCanEverTick = false;
 }
+
+void ABuildingBase::SetCostToBuild(int rocks, int woods)
+{
+  RockNeededToBuild = rocks;
+  WoodNeededToBuild = woods;
+}
