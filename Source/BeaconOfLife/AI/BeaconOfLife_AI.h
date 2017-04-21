@@ -78,10 +78,10 @@ struct FPhysiologicalStats
 
     Heal = 100.0f;
     AmountToBeDying = 22.22f;
-    DyingPerTimeWhenHungry = 0.16f;
-    DyingPerTimeWhenThirty = 0.18f;
-    DyingPerTimeWhenSleepy = 0.08f;
-    DyingPerTimeWhenDying = 0.22f;
+    DyingPerTimeWhenHungry = 0.40f;
+    DyingPerTimeWhenThirty = 0.42f;
+    DyingPerTimeWhenSleepy = 0.22f;
+    DyingPerTimeWhenDying = 0.44f;
   }
 };
 
@@ -237,7 +237,7 @@ struct FFriend
     FriendshipGainedPerInteraction = 0.16f;
     FriendshipLostPerInteraction = 0.1f;
     FriendshipLostPerTime = 0.001f;
-    AmountToFallInLove = 5.22f;
+    AmountToFallInLove = 2.22f;
   }
 };
 
