@@ -46,7 +46,6 @@ void ABeaconOfLife_AI::Tick(float DeltaTime)
   PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenThirty * DeltaTime * (PhysiologicalStats.Drink < PhysiologicalStats.AmountToBeThirsty);
   PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenSleepy * DeltaTime * (PhysiologicalStats.Sleep < PhysiologicalStats.AmountToBeSleepy);
   PhysiologicalStats.Heal -= PhysiologicalStats.DyingPerTimeWhenDying * DeltaTime * (PhysiologicalStats.Heal < PhysiologicalStats.AmountToBeDying);
-  //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
 }
 
 // Called to bind functionality to input
@@ -95,7 +94,6 @@ bool ABeaconOfLife_AI::IsDying()
 
 void ABeaconOfLife_AI::EatFood(AFood *food)
 {
-  //GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f  || %f"), PhysiologicalStats.Food, PhysiologicalStats.AmountToBeHungry));
   PhysiologicalStats.Food += food->AmountOfPower;
 }
 
