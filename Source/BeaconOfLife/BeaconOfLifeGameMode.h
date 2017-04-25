@@ -16,10 +16,8 @@ public:
     void CreateListOfNames();
 
   // Gets the next ID to give to an AI
-  int32 GetAIID();
-
-  // Gets a random name to give to an AI
-  FString GetAIName();
+  UFUNCTION(BlueprintCallable, Category = "General")
+    int32 GetAIID();
 
   // The time of the day
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")

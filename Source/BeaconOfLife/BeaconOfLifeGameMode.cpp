@@ -64,15 +64,3 @@ int32 ABeaconOfLifeGameMode::GetAIID()
   GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::Red, FString::Printf(TEXT("%d"), start));
   return start++;
 }
-
-FString ABeaconOfLifeGameMode::GetAIName()
-{
-  /*if (Names.Num() > 0)
-  {
-    return Names[0]; //FMath::RandRange(0, Names.Num() - 1)
-  }
-  else
-  {*/
-    return FString(TEXT("22"));
-  //}
-}

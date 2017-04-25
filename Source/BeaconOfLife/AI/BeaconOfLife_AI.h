@@ -237,7 +237,7 @@ struct FFriend
     FriendshipGainedPerInteraction = 0.16f;
     FriendshipLostPerInteraction = 0.1f;
     FriendshipLostPerTime = 0.001f;
-    AmountToFallInLove = 2.22f;
+    AmountToFallInLove = 0.22f;
   }
 };
 
@@ -401,10 +401,10 @@ private:
     int Woods;
 
   // Messages send by other AI
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
     TArray<FAIMessage> Messages;
 
   // Friends
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Social")
     TArray<FFriend> Friends;
 };
