@@ -31,7 +31,10 @@ ABeaconOfLife_AI::ABeaconOfLife_AI()
 void ABeaconOfLife_AI::BeginPlay()
 {
   Super::BeginPlay();
-  ID = ((ABeaconOfLifeGameMode *)GetGameInstance())->GetAIID();
+
+  ABeaconOfLifeGameMode *GameMode = (ABeaconOfLifeGameMode *)GetGameInstance();
+  ID = GameMode->GetAIID();
+  Name = GameMode->GetAIName();
 }
 
 // Called every frame

@@ -339,6 +339,10 @@ public:
   UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "General")
     int32 ID;
 
+  // Name of the AI
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "General")
+    FString Name;
+
   // Physiological stats
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PhysiologicalStats")
     FPhysiologicalStats PhysiologicalStats;
