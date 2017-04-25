@@ -239,7 +239,7 @@ void ABeaconOfLife_AI::SetJob(EJob newJob)
   case EJob::Job_Cleaner:
     JobStats.level = 1;
     JobStats.TimeToStartWorking = 0.0f;
-    JobStats.AmountOfTimeToWork = 4.0f;
+    JobStats.AmountOfTimeToWork = 10.0f;
     break;
   case EJob::Job_Farmer:
     JobStats.level = 1;
@@ -254,7 +254,7 @@ void ABeaconOfLife_AI::SetJob(EJob newJob)
   case EJob::Job_Doctor:
     JobStats.level = 1;
     JobStats.TimeToStartWorking = 12.0f;
-    JobStats.AmountOfTimeToWork = 4.0f;
+    JobStats.AmountOfTimeToWork = 10.0f;
     break;
   case EJob::Job_FilmWorker:
     JobStats.level = 1;
